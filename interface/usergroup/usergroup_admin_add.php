@@ -63,7 +63,7 @@ function submitform() {
 		var renum1digit=/^([0-1])+\d{9}$/ ;
 		var emailvalidation = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 		var restreetvalidation = /^([0-9])+\s([A-Za-z])+([\sA-Za-z])+$/;
-		
+		var javaScriptStatus = '<?php echo $GLOBALS['JAVA_SCRIPT_STATUS'];?>';
 
 	//if (document.forms[0].rumple.value.length>0 && document.forms[0].stiltskin.value.length>0) {
 			//} else {
@@ -72,7 +72,7 @@ function submitform() {
 			 
 	        if (document.forms[0].access_group.options[i].selected) {
 		      
-	                       if(document.forms[0].access_group.options[i].text =="Physicians")
+	                       if(document.forms[0].access_group.options[i].text =="Physicians" && javaScriptStatus =='1')
 	                         {
 
 	               		    
@@ -92,11 +92,6 @@ function submitform() {
 				     document.getElementById('phy_street').focus();
 				     return false;
 				}
-			/*	if(trimAll(document.getElementById('phy_street2').value) == ""){
-					alert("Required field missing: Please enter the Address2");
-					document.getElementById('phy_street2').focus();
-					return false;
-				}*/				
 				if(trimAll(document.getElementById('phy_city').value) == ""){
 					alert("Required field missing: Please enter the city");
 					document.getElementById('phy_city').focus();
@@ -115,23 +110,6 @@ function submitform() {
 				if(document.getElementById('phy_state').value=='0') 
 				{
 					alert("Required field missing:Please select a state");
-					return false;
-				 }
-				if(trimAll(document.getElementById('phy_phone').value) == ""){
-					alert("Required field missing: Please enter the phone");
-					document.getElementById('phy_phone').focus();
-					return false;
-				}    
-				if(document.getElementById('phy_phone').value.search(renum1digit)!=-1) 
-				{
-					alert("Required field missing:Number inside phone should not start with number 1 or 0");    
-					document.getElementById('phy_phone').focus();
-					return false;
-				}
-				if(document.getElementById('phy_phone').value.search(re10digit)==-1) 
-				{
-					alert("Required field missing:Please enter a valid 10 digit number inside the phone ");
-							document.getElementById('phy_phone').focus();
 					return false;
 				 }
 				 
@@ -170,68 +148,12 @@ function submitform() {
 							document.getElementById('phy_workphone1').focus();
 					return false;
 				 }
-				 if(trimAll(document.getElementById('phy_workphone2').value) == ""){
-					alert("Required field missing: Please enter the value in workphone2");
-					document.getElementById('phy_workphone2').focus();
-					return false;
-				} 
-				if(document.getElementById('phy_workphone2').value.search(renum1digit)!=-1) 
-				{
-					alert("Required field missing:Number inside workphone2 should not start with number 1 or 0");    
-							document.getElementById('phy_workphone2').focus();
-					return false;
-				}
-				 if(document.getElementById('phy_workphone2').value.search(re10digit)==-1) 
-				{
-					alert("Required field missing:Please enter a valid 10 digit number inside workphone2 ");
-							document.getElementById('phy_workphone2').focus();
-					return false;
-				 }
-				 if(trimAll(document.getElementById('phy_homephone').value) == ""){
-					alert("Required field missing: Please enter the value in Homephone");
-					document.getElementById('phy_homephone').focus();
-					return false;
-				}    
-				if(document.getElementById('phy_homephone').value.search(renum1digit)!=-1) 
-				{
-					alert("Required field missing:Number inside homephone should not start with number 1 or 0");    
-							document.getElementById('phy_homephone').focus();
-					return false;
-				}
-				 if(document.getElementById('phy_homephone').value.search(re10digit)==-1) 
-				{
-					alert("Required field missing:Please enter a valid 10 digit number inside homephone ");
-							document.getElementById('phy_homephone').focus();
-					return false;
-				 }
-				 if(trimAll(document.getElementById('phy_email').value) == ""){
-					alert("Required field missing: Please enter the value in Email");
-					document.getElementById('phy_email').focus();
-					return false;
-				}    
-				 if(emailvalidation.test(document.getElementById('phy_email').value) == false) {
-					alert("Required field missing:Please enter a valid email");
-					return false;
-				 }
-
-				/*
-				 if(trimAll(document.getElementById('phy_licenseStateCode').value) == ""){
-					alert("Required field missing: Please enter the value in LicenseStateCode");
-					document.getElementById('phy_licenseStateCode').focus();
-					return false;
-				}    
-				if(trimAll(document.getElementById('access_group').value) == ""){
-					alert("Required field missing: Please select the Access group");
-					document.getElementById('access_group').focus();
-					return false;
-				}
-				 if(document.getElementById('phy_licenseStateCode').value.search(re2digit)==-1) 
-				{
-					alert("Required field missing:Please enter a valid 2 digit number inside LicenseStateCode");
-					return false;
-				 }							 
-				*/
-
+				 if(trimAll(document.getElementById('phy_email').value) != ""){
+					 if(emailvalidation.test(document.getElementById('phy_email').value) == false) {
+						alert("<?php xl('Required field missing:Please enter a valid email','e');?>");
+						return false;
+					 }
+                  }
 				 if(document.getElementById('phy_sex').value=='') 
 				{
 					alert("Required field missing:Please select a sex");
@@ -249,23 +171,9 @@ function submitform() {
 					alert("Required field missing:Please enter a valid 10 digit number inside npi");
 					return false;
 				 }
-				/* if(trimAll(document.getElementById('deanumber').value) == ""){
-					alert("Required field missing: Please enter the value in deanumber");
-					document.getElementById('deanumber').focus();
-					return false;
-				}    
-				 
-				if(!aphanumeric(document.getElementById('deanumber').value))
-				{
-								alert('Required field missing:Please input valid alphanumeric value and the length should be of 9');
-							   document.getElementById('deanumber').focus();             
-								return false;
-								
-				} */   
+				   }//Physician loop
 
-	                       }//Physician loop
-
-	                   }//if selected
+	                   }//if select2ed
 
 		}//for loop closed
 		if (document.forms[0].rumple.value.length<=0)
@@ -290,10 +198,7 @@ function submitform() {
 		document.forms[0].stiltskin.value='';
 		document.forms[0].submit();
 		
-	//}
-
-	
-	
+	//}	
 }
 function authorized_clicked() {
      var f = document.forms[0];
@@ -316,7 +221,7 @@ function authorized_clicked() {
 </td></tr></table>
 
 <span style="margin-left: 370px;color:#000000;font-family:Tahoma,Arial,Helvetica,sans-serif;font-size:11px;font-weight:normal;line-height:16px;">
-* Required when creating a physician account
+<?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* Required when creating a physician account <?php }?>
 </span>
 
 <br><br>
@@ -377,12 +282,12 @@ if ($fres) {
 </select></td>
 </tr>
 <tr>
-		<td><span class="text"><?php xl('Address','e'); ?>: *</span></td>
+		<td><span class="text"><?php xl('Address','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?></span></td>
 		<td><input type="entry" name="phy_street" id="phy_street" size="20">
 		</td>
 							<td>
 							<span class="text">
-								<?php xl('Suffix','e'); ?>: *
+								<?php xl('Suffix','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
@@ -423,7 +328,7 @@ if ($fres) {
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('City','e'); ?>: *
+								<?php xl('City','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
@@ -433,7 +338,7 @@ if ($fres) {
 					<tr>
 						<td>
 							<span class="text">
-								<?php xl('Zip','e'); ?>: *
+								<?php xl('Zip','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
@@ -441,7 +346,7 @@ if ($fres) {
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('State','e'); ?>: *
+								<?php xl('State','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
@@ -480,7 +385,7 @@ if ($fres) {
 					<tr>
 						<td>
 							<span class="text">
-								<?php xl('Phone','e'); ?>: *
+								<?php xl('Phone','e'); ?>: 
 							</span>
 						</td>
 						<td>
@@ -488,7 +393,7 @@ if ($fres) {
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('Fax','e'); ?>: *
+								<?php xl('Fax','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
@@ -498,7 +403,7 @@ if ($fres) {
 					<tr>
 						<td>
 							<span class="text">
-								<?php xl('Work Phone1','e'); ?>: *
+								<?php xl('Work Phone1','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
@@ -506,7 +411,7 @@ if ($fres) {
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('Work Phone2','e'); ?>: *
+								<?php xl('Work Phone2','e'); ?>: 
 							</span>
 						</td>
 						<td>
@@ -516,7 +421,7 @@ if ($fres) {
 					<tr>
 						<td>
 							<span class="text">
-								<?php xl('Home Phone','e'); ?>: *
+								<?php xl('Home Phone','e'); ?>: 
 							</span>
 						</td>
 						<td>
@@ -524,7 +429,7 @@ if ($fres) {
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('Email','e'); ?>: *
+								<?php xl('Email','e'); ?>: 
 							</span>
 						</td>
 						<td>
@@ -542,7 +447,7 @@ if ($fres) {
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('NPI','e'); ?>: *
+								<?php xl('NPI','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
@@ -560,7 +465,7 @@ if ($fres) {
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('Sex','e'); ?>: *
+								<?php xl('Sex','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>	
 						</td>
 						<td>
