@@ -10,6 +10,7 @@ require_once("../globals.php");
 require_once("$srcdir/acl.inc");
 require_once("$srcdir/options.inc.php");
 require_once("$srcdir/patient.inc");
+require_once("../../library/textformat.js.php");
 
 // Check authorization.
 $thisauth = acl_check('patients', 'demo');
@@ -86,7 +87,6 @@ div.section {
 <style type="text/css">@import url(../../library/dynarch_calendar.css);</style>
 
 <script type="text/javascript" src="../../library/dialog.js"></script>
-<script type="text/javascript" src="../../library/textformat.js"></script>
 <script type="text/javascript" src="../../library/dynarch_calendar.js"></script>
 <?php include_once("{$GLOBALS['srcdir']}/dynarch_calendar_en.inc.php"); ?>
 <script type="text/javascript" src="../../library/dynarch_calendar_setup.js"></script>
@@ -435,7 +435,13 @@ while ($frow = sqlFetchArray($fres)) {
   if ($titlecols > 0) {
     end_cell();
     echo "<td colspan='$titlecols'";
-    echo ($frow['uor'] == 2  && $field_id!='address2') ? " class='required'" : " class='bold'";
+	if($GLOBALS['JAVA_SCRIPT_STATUS'] == 1) {    
+    	echo ($frow['uor'] == 2   && $field_id!='address2') ? " class='required'" : " class='bold'";
+	}
+	else {
+	  	echo ($frow['uor'] == 2  && ($field_id=='DOB' || $field_id=='sex')  && $field_id!='address2') ? " class='required'" : " class='bold'";
+	}
+
     if ($cell_count == 2) echo " style='padding-left:10pt'";
     echo ">";
     $cell_count += $titlecols;

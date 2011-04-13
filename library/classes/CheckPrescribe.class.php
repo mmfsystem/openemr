@@ -10,7 +10,8 @@ class CheckPrescribe {
                     $user_Id = $_SESSION['authUserID'];
 
 					$fetch_uname = "select physician_username,erx_physician_id from erx_physician where user_id = '".$user_Id."' and active_status=1";
-					$uname_res = mysql_query($fetch_uname);
+					$uname_res = SqlStatement($fetch_uname);
+					
 					//$uname_fetch_row = mysql_fetch_row($uname_res);
 					$countPracticeID=mysql_num_rows($uname_res);
 

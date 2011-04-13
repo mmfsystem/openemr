@@ -255,9 +255,7 @@ foreach ($ar as $key => $val) {
                     print "<h1>".xl('Prescription(s)').":</h1>";
           
 
-							$cwd= getcwd();
-							chdir("../../../");
-							require_once("library/classes/Controller.class.php");
+							require_once("../../../library/classes/Controller.class.php");
 							$c = new Controller();
 							echo $c->act(array("prescription" => "", "display_pres_rep" => "", "patient_id" => $pid));
 

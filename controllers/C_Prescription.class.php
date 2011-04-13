@@ -349,16 +349,16 @@ function editprescribe_action($id = "",$patient_id="",$p_obj = null)
 		'pbmDetailsCode' => "",
 		'pbmDetailsCodeDesc' => "");
 
-		$vendor_param3= "More Information";
-		//MIDADTTT002  x0XD53qvbByTMyQyU30zdkp0pI0=
+					$vendor_param3= $patientretrieve_data_fetch['phone_home'];
+					//MIDADTTT002  x0XD53qvbByTMyQyU30zdkp0pI0=
                     if($patientretrieve_data_fetch['sex'] == 'M')
-		{
-		  $prefix = 'Mr.';
-		}
-		if($patientretrieve_data_fetch['sex'] == 'F')
-		{
-		  $prefix = 'Mrs.';
-		} 
+					{
+					  $prefix = 'Mr.';
+					}
+					if($patientretrieve_data_fetch['sex'] == 'F')
+					{
+					  $prefix = 'Mrs.';
+					} 
 
 		$suffixarr = array("0"=>"Select a suffix","1"=>"ANP","2"=>"APN","3"=>"APRN","4"=>"ARNP","5"=>"CNF-RxN","6"=>"CNM","7"=>"CNMW","8"=>"CNP","9"=>"CNS","10"=>"CRNA","11"=>"CRNP","12"=>"DDS","13"=>"DMD","14"=>"DO","15"=>"DPM","16"=>"FNP","17"=>"FNP-C","18"=>"MD","19"=>"MD,FACC","20"=>"MD,FACC,PhD","21"=>"MD,FACOG","22"=>"MD,FACP","23"=>"MD,PhD","24"=>"MD,JD","25"=>"NA","26"=>"NM","27"=>"NP","28"=>"NP-C","29"=>"OD","30"=>"PA","31"=>"PA-C","32"=>"PD","33"=>"PharmD","34"=>"RMA","35"=>"RN","36"=>"RN,FNP-BC","37"=>"RN,FNP-C","38"=>"RNA","39"=>"RNP","40"=>"RPA-C","41"=>"RPH","42"=>"Other","43"=>"None");
 
@@ -419,10 +419,10 @@ function editprescribe_action($id = "",$patient_id="",$p_obj = null)
 
 	$medication_data_query = "select id,drug_id,size,unit,quantity,drug,active,route,dosage,date_added,form from prescriptions where patient_id = '".$_SESSION['pid']."' and active = '1'  and erx_active='0' ";
 
-	$medication_data_result = mysql_query($medication_data_query);
+	$medication_data_result = sqlStatement($medication_data_query);
 
 $i = 0;
-while($medication_data_fetchs = mysql_fetch_array($medication_data_result))
+while($medication_data_fetchs = sqlFetchArray($medication_data_result))
 		{
 	      $medication_data_fetch[$i]['drug_id'] = $medication_data_fetchs['drug_id'];
 	      $medication_data_fetch[$i]['size'] = $medication_data_fetchs['size'];
@@ -460,7 +460,7 @@ for($num =0;$num<count($medication_data_fetch);$num++)
           
      $result_medical_history[$num]=$client->call('sendMedicationHistoryToDigitalRx',array('SenderInformation' => $vendor_param1, 'digitalRxMedicationHistory' => $medication_details[$num],  'DigitalRxStatus' => $vendor_param2, 'moreInformation' => $vendor_param3));
 	 $update_flag_query[$num] = "Update prescriptions set erx_active = '1' where drug_id = '".$medication_data_fetch[$num]['drug_id']."' and provider_id= '".$_SESSION['authUserID']."' and date_added  = '".$medication_data_fetch[$num]['date_update']."'";
-     $update_flag_result = mysql_query($update_flag_query[$num]);
+     $update_flag_result = sqlStatement($update_flag_query[$num]);
 
 }
 ////////////////////////////////////////////////////////////////
@@ -493,7 +493,7 @@ for($num =0;$num<count($medication_data_fetch);$num++)
 			$this->template_mod . "_send.html");
 	}
 
-	function multiprintfax_header(& $pdf, $p) {
+      function multiprintfax_header(& $pdf, $p) {
 		return $this->multiprint_header( $pdf, $p );
 	}
 
@@ -502,7 +502,7 @@ for($num =0;$num<count($medication_data_fetch);$num++)
 		//print header
 		$pdf->ezImage($GLOBALS['oer_config']['prescriptions']['logo'],'','50','','center','');
 		$pdf->ezColumnsStart(array('num'=>2, 'gap'=>10));
-		$res = sqlQuery("SELECT concat('<b>',f.name,'</b>\n',f.street,'\n',f.city,', ',f.state,' ',f.postal_code,'\nTel:',f.phone,if(f.fax != '',concat('\nFax: ',f.fax),'')) addr,dea FROM users JOIN facility AS f ON f.name = users.facility where users.id ='" .
+		$res = sqlStatement("SELECT concat('<b>',f.name,'</b>\n',f.street,'\n',f.city,', ',f.state,' ',f.postal_code,'\nTel:',f.phone,if(f.fax != '',concat('\nFax: ',f.fax),'')) addr,dea FROM users JOIN facility AS f ON f.name = users.facility where users.id ='" .
 			mysql_real_escape_string($p->provider->id) . "'");
 		$pdf->ezText($res['addr'],12);
 		$my_y = $pdf->y;
@@ -517,7 +517,8 @@ for($num =0;$num<count($medication_data_fetch);$num++)
     if ($this->is_faxing || $GLOBALS['oer_config']['prescriptions']['show_DEA'])
       $pdf->ezText('<b>' . xl('DEA') . ':</b>' . $p->provider->federal_drug_id, 12);
     else
-      $pdf->ezText('<b>DEA:</b>'.$res['dea'], 12);
+        $pdf->ezText('<b>' . xl('DEA') . ':</b> ________________________', 12);
+    //  $pdf->ezText('<b>DEA:</b>'.$arr['dea'], 12);
 		$pdf->ezColumnsStop();
 		if ($my_y < $pdf->y){
 			$pdf->ezSetY($my_y);
@@ -570,7 +571,7 @@ for($num =0;$num<count($medication_data_fetch);$num++)
 	        echo ("<td>\n");
                 echo ('<b><span class="large">' .  $p->provider->get_name_display() . '</span></b>'. '<br>');
                 if ($GLOBALS['oer_config']['prescriptions']['show_DEA']) echo ('<span class="large"><b>' . xl('DEA') . ':</b>' . $p->provider->federal_drug_id . '</span>');
-                else echo ('<b><span class="large">' . xl('DEA') . ':</span></b>'.$res['dea']);
+                else echo ('<b><span class="large">' . xl('DEA') . ':</span></b> ________________________');
 	        echo ("</td>\n");
 	        echo ("</tr>\n");
 	        echo ("<tr>\n");
@@ -713,15 +714,15 @@ for($num =0;$num<count($medication_data_fetch);$num++)
 			 
 			$body .= "</b>     <i>" .
 				$p->substitute_array[$p->get_substitute()] . "</i>\n" .
-				'<b>Disp #:</b> <u>' . $p->get_quantity() . "</u>\n" .
-				'<b>Sig:</b> ' . $p->get_sig()."\n";
+				'<b>' . xl('Disp #').':</b> <u>' . $p->get_quantity() . "</u>\n" .
+				'<b>' . xl('Sig').':</b> ' . $p->get_sig()."\n";
 			}
 			if($countPracticeID == '0')
 			{
 			$body .= "</b>     <i>" .
 				$p->substitute_array[$p->get_substitute()] . "</i>\n" .
-				'<b>Disp #:</b> <u>' . $p->get_quantity() . "</u>\n" .
-				'<b>Sig:</b> ' . $p->get_dosage() . ' ' . $p->form_array[$p->get_form()] . ' ' .
+				'<b>' . xl('Disp #').':</b> <u>' . $p->get_quantity() . "</u>\n" .
+				'<b>' . xl('Sig').':</b> ' . $p->get_dosage() . ' ' . $p->form_array[$p->get_form()] . ' ' .
 	//			$p->route_array[$p->get_route()] . ' ' . $p->interval_array[$p->get_interval()] . "\n";
 				$p->get_route() . ' ' . $p->interval_array[$p->get_interval()] . "\n";
 			}
@@ -1024,30 +1025,28 @@ for($num =0;$num<count($medication_data_fetch);$num++)
 		}
 	}
 
-
-	
-function do_lookup() {
-		$_GET['drug'] = stripslashes($_GET['drug']);
-		$_POST['drug'] = stripslashes($_POST['drug']);
+	function do_lookup() {
+		$drugGetLookup = $_GET['drug'];
+		$drugPostLookup = $_POST['drug'];	
+		
 		if ($_POST['process'] != "true") {
                     // don't do a lookup
-		    $this->assign("drug", $_GET['drug']);
+		    $this->assign("drug", $drugLookup);
                     return;
                 }
 
                 // process the lookup
-		$this->assign("drug", $_POST['drug']);
+		$this->assign("drug", $drugPostLookup);
 		$list = array();
 		if (!empty($_POST['drug'])) {
-			$list = @RxList::get_list($_POST['drug']);
+			$list = @RxList::get_list($drugPostLookup);
+			
 		}
- 		$druglist =	$list['drug'];
-		$drugpost = $_POST['drug'];
-
+  $druglist =	$list['drug'];
+		$drugpost = $drugPostLookup;
 	if (is_array($list) && !empty($list)) { 	
 		$strengthvalue =	$list['strengthvalue'];
 		$druidlistids = $list['drugid'];
-
 		if(is_array($druglist)) {
 			$druglist = array_flip($druglist);
 			$this->assign("drug_values",array_keys($druglist));
@@ -1062,7 +1061,7 @@ function do_lookup() {
 
 			if(empty($drugpost))
 			{
-			$this->assign("NO_RESULTS","Please type atleast a single character"."<br />");
+			$this->assign("NO_RESULTS","Please type at least a single character"."<br />");
 			}
 			else
 			{

@@ -24,106 +24,126 @@ if ($_GET["mode"] == "update") {
     sqlStatement("update groups set user='$tqvar' where user='". $user_data["username"]  ."'");
     //echo "query was: " ."update groups set user='$tqvar' where user='". $user_data["username"]  ."'" ;
   }
-  if ($_GET["taxid"]) {
+  if (isset($_GET["taxid"]) || $_GET["taxid"] == '' )  {
     $tqvar = formData('taxid','G');
     sqlStatement("update users set federaltaxid='$tqvar' where id={$_GET["id"]}");
   }
-  if ($_GET["drugid"]) {
+  if (isset($_GET["drugid"]) || $_GET["drugid"] == '') {
     $tqvar = formData('drugid','G');
     sqlStatement("update users set federaldrugid='$tqvar' where id={$_GET["id"]}");
   }
-  if ($_GET["upin"]) {
+  if (isset($_GET["upin"]) || $_GET["upin"] =='' ) {
     $tqvar = formData('upin','G');
     sqlStatement("update users set upin='$tqvar' where id={$_GET["id"]}");
   }
-  
-  if ($_GET["phy_suffix"]) {
+
+  if (isset($_GET["phy_suffix"]) || $_GET["phy_suffix"] == '') {
     $tqvar = formData('phy_suffix','G');
 
 
     sqlStatement("update users set suffix='$tqvar' where id='".$_GET["id"]."'");
   }
 
-  if ($_GET["phy_licenseNo"]) {
+  if (isset($_GET["phy_licenseNo"]) || $_GET["phy_licenseNo"] == '') {
     $tqvar = formData('phy_licenseNo','G');
     sqlStatement("update users set licenseNo='$tqvar' where id='".$_GET["id"]."'");
   }
 
 
-   if ($_GET["phy_city"]) {
+   if (isset($_GET["phy_city"]) || $_GET["phy_city"] == '') {
     $tqvar = formData('phy_city','G');
     sqlStatement("update users set city='$tqvar' where id='".$_GET["id"]."'");
   }
 
-    if ($_GET["phy_homephone"]) {
+    if (isset($_GET["phy_homephone"]) || $_GET["phy_homephone"] == '') {
     $tqvar = formData('phy_homephone','G');
     sqlStatement("update users set phonecell='$tqvar' where id='".$_GET["id"]."'");
   }
-   if ($_GET["phy_email"]) {
+  
+
+
+if (isset($_GET["phy_sex"]) || $_GET["phy_sex"] =='')
+{
+
+   $tqvar = $_GET["phy_sex"];
+
+    if($tqvar == 'Male')
+	  {
+		  $sexvar = '1';
+	  }
+    if($tqvar == 'Female')
+	  {
+		  $sexvar = '0';
+	  }
+
+    sqlStatement("update users set sex='".$sexvar."' where id='".$_GET["id"]."'");
+  }  
+
+  if (isset($_GET["phy_email"]) || $_GET["phy_email"] == '') {
     $tqvar = formData('phy_email','G');
     sqlStatement("update users set email='$tqvar' where id='".$_GET["id"]."'");
   }
-  if ($_GET["phy_street"]) {
+  if (isset($_GET["phy_street"]) ||  $_GET["phy_street"] == '') {
     $tqvar = formData('phy_street','G');
     sqlStatement("update users set street='$tqvar' where id='".$_GET["id"]."'");
 	 }
-	 if ($_GET["phy_street2"]) {
+	 if (isset($_GET["phy_street2"]) ||  $_GET["phy_street2"] == '') {
     $tqvar = formData('phy_street2','G');
     sqlStatement("update users set street2='$tqvar' where id='".$_GET["id"]."'");
   }
 
-  if ($_GET["phy_state"]) {
+  if (isset($_GET["phy_state"]) || $_GET["phy_state"] == '') {
     $tqvar = formData('phy_state','G');
     sqlStatement("update users set state='$tqvar' where id='".$_GET["id"]."'");
   }
-  if ($_GET["phy_zip"]) {
+  if (isset($_GET["phy_zip"]) || $_GET["phy_zip"] == '')   {
     $tqvar = formData('phy_zip','G');
     sqlStatement("update users set zip='$tqvar' where id='".$_GET["id"]."'");
   }
 
-  if ($_GET["phy_phone"]) {
+  if (isset($_GET["phy_phone"]) || $_GET["phy_phone"] == '') {
     $tqvar = formData('phy_phone','G');
     sqlStatement("update users set phone='$tqvar' where id='".$_GET["id"]."'");
   }
-  if ($_GET["phy_fax"]) {
+  if (isset($_GET["phy_fax"]) || $_GET["phy_fax"] == '') {
     $tqvar = formData('phy_fax','G');
     sqlStatement("update users set fax='$tqvar' where id='".$_GET["id"]."'");
   }
-    if ($_GET["phy_workphone1"]) {
+    if (isset($_GET["phy_workphone1"]) || $_GET["phy_workphone1"] == '') {
     $tqvar = formData('phy_workphone1','G');
     sqlStatement("update users set phonew1='$tqvar' where id='".$_GET["id"]."'");
   }
-  if ($_GET["phy_workphone2"]) {
+  if (isset($_GET["phy_workphone2"]) || $_GET["phy_workphone2"] =='') {
     $tqvar = formData('phy_workphone2','G');
     sqlStatement("update users set phonew2='$tqvar' where id='".$_GET["id"]."'");
   }
 
-    if ($_GET["deanumber"]) {
+    if (isset($_GET["deanumber"]) || $_GET["deanumber"] == '') {
     $tqvar = formData('deanumber','G');
     sqlStatement("update users set dea='$tqvar' where id='".$_GET["id"]."'");
   }
   
-  if ($_GET["npi"]) {
+  if (isset($_GET["npi"]) || $_GET["phy_npi"] == '') {
     $tqvar = formData('npi','G');
     sqlStatement("update users set npi='$tqvar' where id={$_GET["id"]}");
   }
-  if ($_GET["taxonomy"]) {
+  if (isset($_GET["taxonomy"]) || $_GET["taxonomy"] == '') {
     $tqvar = formData('taxonomy','G');
     sqlStatement("update users set taxonomy = '$tqvar' where id= {$_GET["id"]}");
   }
-  if ($_GET["lname"]) {
+  if (isset($_GET["lname"]) || $_GET["lname"] == '') {
     $tqvar = formData('lname','G');
     sqlStatement("update users set lname='$tqvar' where id={$_GET["id"]}");
   }
-  if ($_GET["job"]) {
+  if (isset($_GET["job"]) || $_GET["job"] =='')  {
     $tqvar = formData('job','G');
     sqlStatement("update users set specialty='$tqvar' where id={$_GET["id"]}");
   }
-  if ($_GET["mname"]) {
+  if (isset($_GET["mname"]) || $_GET["mname"] == '') {
           $tqvar = formData('mname','G');
           sqlStatement("update users set mname='$tqvar' where id={$_GET["id"]}");
   }
-  if ($_GET["facility_id"]) {
+  if (isset($_GET["facility_id"]) || $_GET["facility_id"] == '') {
           $tqvar = formData('facility_id','G');
           sqlStatement("update users set facility_id = '$tqvar' where id = {$_GET["id"]}");
           //(CHEMED) Update facility name when changing the id
@@ -142,7 +162,7 @@ if ($_GET["mode"] == "update") {
 		    table_id = {$_GET["id"]}");
     }
   }
-  if ($_GET["fname"]) {
+  if (isset($_GET["fname"]) || $_GET["fname"] == '')  {
           $tqvar = formData('fname','G');
           sqlStatement("update users set fname='$tqvar' where id={$_GET["id"]}");
   }
@@ -177,7 +197,7 @@ if ($_GET["mode"] == "update") {
   }
 
   // for relay health single sign-on
-  if ($_GET["ssi_relayhealth"]) {
+  if (isset($_GET["ssi_relayhealth"]) || $_GET["ssi_relayhealth"] == '') {
     $tqvar = formData('ssi_relayhealth','G');
     sqlStatement("update users set ssi_relayhealth = '$tqvar' where id = {$_GET["id"]}");
   }
@@ -190,7 +210,7 @@ if ($_GET["mode"] == "update") {
     "calendar = $calvar, see_auth = '" . $_GET['see_auth'] . "' WHERE " .
     "id = {$_GET["id"]}");
 
-  if ($_GET["comments"]) {
+  if (isset($_GET["comments"]) || $_GET["comments"] == '') {
     $tqvar = formData('comments','G');
     sqlStatement("update users set info = '$tqvar' where id = {$_GET["id"]}");
   }
@@ -287,6 +307,7 @@ function submitform() {
 	var re10digit=/^\d{10}$/ //regular expression defining a 10 digit number
 	var emailvalidation = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 	var restreetvalidation = /^([0-9])+\s([A-Za-z])+([\sA-Za-z])+$/;
+	var javaScriptStatus = '<?php echo $GLOBALS['JAVA_SCRIPT_STATUS'];?>';
 
 	var flag=0;
 	if(document.forms[0].clearPass.value!="")
@@ -335,7 +356,7 @@ function submitform() {
 	{ 
 	   if (document.forms[0].access_group_id.options[i].selected)  
 	   {
-	     if(document.forms[0].access_group_id.options[i].text =="Physicians")
+	     if(document.forms[0].access_group_id.options[i].text =="Physicians" && javaScriptStatus =='1')
 	       {
 
     
@@ -388,7 +409,7 @@ function submitform() {
 				alert("Required field missing:Please select a state");
 				return false;
 			 }
-			if(trimAll(document.getElementById('phy_phone').value) == ""){
+			/*if(trimAll(document.getElementById('phy_phone').value) == ""){
 				flag == 1;
 				alert("Required field missing: Please enter the phone");
 				document.getElementById('phy_phone').focus();
@@ -407,7 +428,7 @@ function submitform() {
 				alert("Required field missing:Please enter a valid 10 digit number inside the phone ");
 				document.getElementById('phy_phone').focus();
 				return false;
-			 }
+			 }*/
 			 
 			if(trimAll(document.getElementById('phy_fax').value) == ""){
 				flag == 1;
@@ -450,76 +471,12 @@ function submitform() {
 				document.getElementById('phy_workphone1').focus();
 				return false;
 			 }
-			 if(trimAll(document.getElementById('phy_workphone2').value) == ""){
-				flag == 1;
-				alert("Required field missing: Please enter the value in workphone2");
-				document.getElementById('phy_workphone2').focus();
-				return false;
-			} 
-			if(document.getElementById('phy_workphone2').value.search(renum1digit)!=-1) 
-			{
-				flag == 1;
-				alert("Required field missing:Number inside workphone2 should not start with number 1 or 0");    
-				document.getElementById('phy_workphone2').focus();
-				return false;
-			}
-			 if(document.getElementById('phy_workphone2').value.search(re10digit)==-1) 
-			{
-				flag == 1;
-				alert("Required field missing:Please enter a valid 10 digit number inside workphone2 ");
-				document.getElementById('phy_workphone2').focus();
-				return false;
-			 }
-			 if(trimAll(document.getElementById('phy_homephone').value) == ""){
-				flag == 1;
-				alert("Required field missing: Please enter the value in Homephone");
-				document.getElementById('phy_homephone').focus();
-				return false;
-			}    
-			if(document.getElementById('phy_homephone').value.search(renum1digit)!=-1) 
-			{
-				flag == 1;
-				alert("Required field missing:Number inside homephone should not start with number 1 or 0");    
-				document.getElementById('phy_homephone').focus();
-				return false;
-			}
-			 if(document.getElementById('phy_homephone').value.search(re10digit)==-1) 
-			{
-				flag == 1;				
-				alert("Required field missing:Please enter a valid 10 digit number inside homephone ");
-				document.getElementById('phy_homephone').focus();
-				return false;
-			 }
-			 if(trimAll(document.getElementById('phy_email').value) == ""){
-				flag == 1;
-				alert("Required field missing: Please enter the value in Email");
-				document.getElementById('phy_email').focus();
-				return false;
-			}    
-			 if(emailvalidation.test(document.getElementById('phy_email').value) == false) {
-				flag == 1;
-				alert("Required field missing:Please enter a valid email");
-				return false;
-			 }
-
-			/*
-			 if(trimAll(document.getElementById('phy_licenseStateCode').value) == ""){
-				alert("Required field missing: Please enter the value in LicenseStateCode");
-				document.getElementById('phy_licenseStateCode').focus();
-				return false;
-			}    
-			if(trimAll(document.getElementById('access_group').value) == ""){
-				alert("Required field missing: Please select the Access group");
-				document.getElementById('access_group').focus();
-				return false;
-			}
-			 if(document.getElementById('phy_licenseStateCode').value.search(re2digit)==-1) 
-			{
-				alert("Required field missing:Please enter a valid 2 digit number inside LicenseStateCode");
-				return false;
-			 }							 
-			*/
-
+			 if(trimAll(document.getElementById('phy_email').value) != ""){
+				 if(emailvalidation.test(document.getElementById('phy_email').value) == false) {
+					alert("<?php xl('Required field missing:Please enter a valid email','e');?>");
+					return false;
+				 }
+              }			  
 			 if(document.getElementById('phy_sex').value=='') 
 			{
 				flag == 1;
@@ -601,7 +558,7 @@ function authorized_clicked() {
 </table>
 
 <span style="margin-left: 370px;color:#000000;font-family:Tahoma,Arial,Helvetica,sans-serif;font-size:11px;font-weight:normal;line-height:16px;">
-* Required when creating a physician account
+<?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* Required when creating a physician account <?php }?>
 </span>
 
 <br>
@@ -683,12 +640,12 @@ foreach($result as $iter2) {
 </select></td>
 </tr>
 	<tr>
-		<td><span class="text"><?php xl('Address','e'); ?>: *</span></td>
+		<td><span class="text"><?php xl('Address','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?></span></td>
 		<td><input type="entry" name="phy_street" id="phy_street" size="20" value="<?php echo $iter['street']; ?>">
 		</td>
 							<td>
 							<span class="text">
-								<?php xl('Suffix','e'); ?>: *
+								<?php xl('Suffix','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
@@ -729,7 +686,7 @@ foreach($result as $iter2) {
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('City','e'); ?>: *
+								<?php xl('City','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
@@ -739,7 +696,7 @@ foreach($result as $iter2) {
 					<tr>
 						<td>
 							<span class="text">
-								<?php xl('Zip','e'); ?>: *
+								<?php xl('Zip','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
@@ -747,7 +704,7 @@ foreach($result as $iter2) {
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('State','e'); ?>: *
+								<?php xl('State','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
@@ -786,7 +743,7 @@ foreach($result as $iter2) {
 					<tr>
 						<td>
 							<span class="text">
-								<?php xl('Phone','e'); ?>: *
+								<?php xl('Phone','e'); ?>: 
 							</span>
 						</td>
 						<td>
@@ -794,47 +751,47 @@ foreach($result as $iter2) {
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('Fax','e'); ?>: *
+								<?php xl('Fax','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
-							<input type="entry" maxlength="10" name="phy_fax" id = "phy_fax" size="20" value="<?php echo $iter['fax'];?>">
+							<input type="entry" maxlength="10" name="phy_fax" id = "phy_fax" size="20" value="<?php if( $iter['fax']!=0 ) { echo $iter['fax'];}?>">
 						</td>
 					</tr>	
 					<tr>
 						<td>
 							<span class="text">
-								<?php xl('Work Phone1','e'); ?>: *
+								<?php xl('Work Phone1','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
-							<input type="entry" name="phy_workphone1" maxlength="10" id="phy_workphone1" size="20" value="<?php echo $iter['phonew1']; ?>">
+							<input type="entry" name="phy_workphone1" maxlength="10" id="phy_workphone1" size="20" value="<?php if($iter['phonew1']!=0) {echo $iter['phonew1']; } ?>">
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('Work Phone2','e'); ?>: *
+								<?php xl('Work Phone2','e'); ?>: 
 							</span>
 						</td>
 						<td>
-							<input type="entry" name="phy_workphone2" maxlength="10" id="phy_workphone2" size="20" value="<?php echo $iter['phonew2']; ?>">
+							<input type="entry" name="phy_workphone2" maxlength="10" id="phy_workphone2" size="20" value="<?php if($iter['phonew2']!=0) {echo $iter['phonew2'];} ?>">
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<span class="text">
-								<?php xl('Home Phone','e'); ?>: *
+								<?php xl('Home Phone','e'); ?>: 
 							</span>
 						</td>
 						<td>
-							<input type="entry" name="phy_homephone" id="phy_homephone" maxlength="10" size="20" value="<?php echo $iter['phonecell']; ?>">
+							<input type="entry" name="phy_homephone" id="phy_homephone" maxlength="10" size="20" value="<?php if($iter['phonecell']!=0) { echo $iter['phonecell']; } ?>">
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('Email','e'); ?>: *
+								<?php xl('Email','e'); ?>: 
 							</span>
 						</td>
 						<td>
-							<input type="entry"  name="phy_email" id ="phy_email" size="20" maxlength="25" value="<?php echo $iter['email']; ?>">
+							<input type="entry"  name="phy_email" id ="phy_email" size="20" maxlength="50" value="<?php echo $iter['email']; ?>">
 						</td>
 					</tr>
 					<tr>
@@ -844,15 +801,15 @@ foreach($result as $iter2) {
 							</span>
 						</td>
 						<td>
-							<input type="entry" name="phy_licenseNo" maxlength="10" id="phy_licenseNo" value="<?php echo $iter['licenseNo'];?>" size="20">
+							<input type="entry" name="phy_licenseNo" maxlength="10" id="phy_licenseNo" value="<?php if($iter['licenseNo']!=0) {echo $iter['licenseNo'];}?>" size="20">
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('NPI','e'); ?>: *
+								<?php xl('NPI','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>
 						</td>
 						<td>
-							<input type="text" name="phy_npi" id="phy_npi" size="20" value="<?php echo $iter['npi']?>" maxlength="10">
+							<input type="text" name="phy_npi" id="phy_npi" size="20" value="<?php if($iter['npi']!=0) {echo $iter['npi'];}?>" maxlength="10">
 						</td>
 					</tr>
 					<tr>
@@ -866,7 +823,7 @@ foreach($result as $iter2) {
 						</td>
 						<td>
 							<span class="text">
-								<?php xl('Sex','e'); ?>: *
+								<?php xl('Sex','e'); ?>: <?php if($GLOBALS['JAVA_SCRIPT_STATUS']==1) {?>* <?php }?>
 							</span>	
 						</td>
 						<td>

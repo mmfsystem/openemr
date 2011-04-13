@@ -53,16 +53,16 @@ if ($result = mysql_fetch_array($query, MYSQL_ASSOC)) {
 //update user information if selected from form
 if ($_POST['update']) { // OPTION update practice inf
   $query = "update users set " .
-    "fname = '" . $_POST['practice_fname'] . "', " .  
-    "lname = '" . $_POST['practice_lname'] . "', " .  
-    "title = '" . $_POST['practice_title'] . "', " .  
-    "street = '" . $_POST['practice_address'] . "', " .  
-    "city = '" . $_POST['practice_city'] . "', " .  
-    "state = '" . $_POST['practice_state'] . "', " .  
-    "zip = '" . $_POST['practice_zip'] . "', " .  
-    "phone = '" . $_POST['practice_phone'] . "', " .  
-    "fax = '" . $_POST['practice_fax'] . "', " .  
-    "dea = '" . $_POST['practice_dea'] . "' " .  
+    "fname = '" . formData('practice_fname') . "', " .  
+    "lname = '" . formData('practice_lname') . "', " .  
+    "title = '" . formData('practice_title') . "', " .  
+    "street = '" . formData('practice_address') . "', " .  
+    "city = '" . formData('practice_city') . "', " .  
+    "state = '" . formData('practice_state') . "', " .  
+    "zip = '" . formData('practice_zip') . "', " .  
+    "phone = '" . formData('practice_phone') . "', " .  
+    "fax = '" . formData('practice_fax') . "', " .  
+    "dea = '" . formData('practice_dea') . "' " .
     "where id =" . $_SESSION['authUserID'];
   sqlInsert($query);
 }
@@ -151,18 +151,18 @@ if ($camos_content[0]) { //decide if we are printing this rx
     <hr/>
   <div class='bottomheader'>
   <?
-    print "<span class='mytagname'> Name:</span>\n";
+    print "<span class='mytagname'> " . xl('Name') . ":</span>\n";
     print "<span class='mydata'> $patient_name </span>\n";
-    print "<span class='mytagname'> Address: </span>\n";
+    print "<span class='mytagname'>" . xl('Address') . ":</span>\n";
     print "<span class='mydata'> $patient_address, $patient_city, " . 
       "$patient_state $patient_zip </span><br/>\n";
-    print "<span class='mytagname'>Phone:</span>\n";
+    print "<span class='mytagname'>" . xl('Phone') . ":</span>\n";
     print "<span class='mydata'>$patient_phone</span>\n";
-    print "<span class='mytagname'>DOB:</span>\n";
+    print "<span class='mytagname'>" . xl('DOB') . ":</span>\n";
     print "<span class='mydata'> $patient_dob </span>\n";
-    print "<span class='mytagname'>Date:</span>\n";
+    print "<span class='mytagname'>" . xl('Date') . ":</span>\n";
     print "<span class='mydata'>" . date("F d, Y") . "</span><br/><br/>\n";
-    print "<div class='symbol'>Rx</div><br/>\n";
+    print "<div class='symbol'>" . xl('Rx') . "</div><br/>\n";
   ?>
   </div>
   <div class='content'>
@@ -473,44 +473,44 @@ foreach($rxarray as $val) {
 <form method=POST name='pick_items'>
 <table>
 <tr>
-  <td> <?php xl('First Name','e'); ?>: </td> 
-  <td> <input type=text name=practice_fname value ='<? echo $practice_fname; ?>'> </td>
+  <td><?php xl('First Name','e'); ?>: </td> 
+  <td> <input type=text name=practice_fname value ='<? echo htmlspecialchars($practice_fname,ENT_QUOTES); ?>'> </td>
 </tr>
 <tr>
-  <td> <?php xl('Last Name','e'); ?>: </td> 
-  <td> <input type=text name=practice_lname value ='<? echo $practice_lname; ?>'> </td>
+  <td><?php xl('Last Name','e'); ?>: </td> 
+  <td> <input type=text name=practice_lname value ='<? echo htmlspecialchars($practice_lname,ENT_QUOTES); ?>'> </td>
 </tr>
 <tr>
-  <td> <?php xl('Title','e'); ?>: </td> 
-  <td> <input type=text name=practice_title value ='<? echo $practice_title; ?>'> </td>
+  <td><?php xl('Title','e'); ?>: </td> 
+  <td> <input type=text name=practice_title value ='<? echo htmlspecialchars($practice_title,ENT_QUOTES); ?>'> </td>
 </tr>
 <tr>
-  <td> <?php xl('Street Address','e'); ?>: </td> 
-  <td> <input type=text name=practice_address value ='<? echo $practice_address; ?>'> </td>
+  <td><?php xl('Street Address','e'); ?>: </td> 
+  <td> <input type=text name=practice_address value ='<? echo htmlspecialchars($practice_address,ENT_QUOTES); ?>'> </td>
 </tr>
 <tr>
-  <td> <?php xl('City','e'); ?>: </td> 
-  <td> <input type=text name=practice_city value ='<? echo $practice_city; ?>'> </td>
+  <td><?php xl('City','e'); ?>: </td> 
+  <td> <input type=text name=practice_city value ='<? echo htmlspecialchars($practice_city,ENT_QUOTES); ?>'> </td>
 </tr>
 <tr>
-  <td> <?php xl('State','e'); ?>: </td> 
-  <td> <input type=text name=practice_state value ='<? echo $practice_state; ?>'> </td>
+  <td><?php xl('State','e'); ?>: </td> 
+  <td> <input type=text name=practice_state value ='<? echo htmlspecialchars($practice_state,ENT_QUOTES); ?>'> </td>
 </tr>
 <tr>
-  <td> <?php xl('Zip','e'); ?>: </td> 
-  <td> <input type=text name=practice_zip value ='<? echo $practice_zip; ?>'> </td>
+  <td><?php xl('Zip','e'); ?>: </td> 
+  <td> <input type=text name=practice_zip value ='<? echo htmlspecialchars($practice_zip,ENT_QUOTES); ?>'> </td>
 </tr>
 <tr>
-  <td> <?php xl('Phone','e'); ?>: </td> 
-  <td> <input type=text name=practice_phone value ='<? echo $practice_phone; ?>'> </td>
+  <td><?php xl('Phone','e'); ?>: </td> 
+  <td> <input type=text name=practice_phone value ='<? echo htmlspecialchars($practice_phone,ENT_QUOTES); ?>'> </td>
 </tr>
 <tr>
-  <td> <?php xl('Fax','e'); ?>: </td> 
-  <td> <input type=text name=practice_fax value ='<? echo $practice_fax; ?>'> </td>
+  <td><?php xl(' Fax','e'); ?>: </td> 
+  <td> <input type=text name=practice_fax value ='<? echo htmlspecialchars($practice_fax,ENT_QUOTES); ?>'> </td>
 </tr>
 <tr>
-  <td> <?php xl('DEA','e'); ?>: </td> 
-  <td> <input type=text name=practice_dea value ='<? echo $practice_dea; ?>'> </td>
+  <td><?php xl('DEA','e'); ?>: </td> 
+  <td> <input type=text name=practice_dea value ='<? echo htmlspecialchars($practice_dea,ENT_QUOTES); ?>'> </td>
 </tr>
 </table>
 <input type=submit name=update value='<?php xl('Update','e'); ?>'>
